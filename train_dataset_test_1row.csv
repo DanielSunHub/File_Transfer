@@ -1,0 +1,2 @@
+prompt,response
+深圳XXX路店厨邦酱油近6个月的入篮率有什么变化？,"SELECT     date_format(a.business_date, '%Y-%m')   as '月份' ,    sum(case when c.item_name = '厨邦酱油' then 1 else 0 end) / count(distinct a.order_id) *100  as '入篮率' FROM vw_dwd_fact_store_order_detail as aJOIN vw_dwd_dim_item as c on a.item_id = c.item_idJOIN vw_dwd_dim_store as b on a.store_id = b.store_idWHERE a.business_date >= to_date(date_trunc('month',date_sub(curdate(), interval 6 month))) and b.store_name = '深圳XXX路店'GROUP BY date_format(a.business_date, '%Y-%m')ORDER BY date_format(a.business_date, '%Y-%m')LIMIT 6"
